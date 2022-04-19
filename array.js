@@ -1,48 +1,39 @@
 #!/usr/bin/node
-const a = [ 1,2,4,8,16,32,64,128 ];
+
+// 1. Define array size
+const size = 10
+
+// 2. Define array
+const array =
+	new Array(10)
+	.fill(1)
+	.map( (item,index) => item = index )
+
+// 3. Define some functions
 const sum = (a,b) => a + b
-const quadratic = (a) => a*a
-const range = (item,from,to) => item > from && item < to
-var b = a.reduce(sum)
-var c = a.map(quadratic)
-var d = a.filter( item => range(item,2,20))
-var e = a.every( item => item<129);
-var f = a.some( item => item<0);
+const fact = (a,b) => (a == 0 ? 1 : a) * (b == 0 ? 1 : b)
+const quadratic = (a) => a * a
+const double = (a) => 2 * a
+const range = (item, from, to) => item > from && item < to
 
-// console.log("Original: " + a)
-// console.log("reduce(sum): " + b)
-// console.log("map(quadratic): " + c)
-// console.log("every(item<129): " + d)
-// console.log("some(item<0): " + f)
+// 4.
+const arraySum = array.reduce(sum)
+const arrayFact = array.reduce(fact)
+const arrayQuadratic = array.map(quadratic)
+const arrayRangeFilter = array.filter( item => range(item,2,20))
+const arrayEvery = array.every( item => item < 129);
+const arraySome = array.some( item => item < 0);
 
-/*
-    var tmpRecord = {}
-    this.props.fieldsList.map( (field) => {tmpRecord[field]= ""})
-    this.updateRecord(tmpRecord,LABELS.NEW)
-*/
-const fieldList = ["name","type","year","category","price"];
+// 5. Basic Tests
+console.log("array: " + array)
+console.log("arraySum: " + arraySum)
+console.log("arrayFact: " + arrayFact)
+console.log("arrayQuadratic: " + arrayQuadratic)
+console.log("arrayRangeFilter (2,20): " + arrayRangeFilter)
+console.log("arrayEvery (<129): " + arrayEvery)
+console.log("arraySome (<0): " + arraySome)
 
-const arrayToJson = (x,y,index,arr) => {
-  const quote = (s="") => "\"" + s + "\"";
-  return (index === 1) ? ( "{ " + quote(x) + ": " + quote() + ", ").concat(quote(y)) :
-  (index === arr.length-1) ? ( x + ': ' + quote() + ", ").concat(quote(y) + ": " + quote() + " }") :
-  ( x + ': ' + quote() + ", ").concat(quote(y));
-}
+const arrayDoubleQuadratic = array.map(quadratic).map(double)
 
-const record = fieldList.reduce( (x,y,index,arr) => arrayToJson(x,y,index,arr) )
-
-
-console.log("record: " + record)
-const recordJSON = JSON.parse(record)
-console.log("recordJSON: " + recordJSON)
-
-console.log("fieldList.keys(): " + fieldList.keys())
-console.log("Array.from(fieldList): " + Array.from(fieldList))
-
-const initJsonFromArray = fields => {
-  const obj = {}
-  fields.forEach( field => obj[field] = "" )
-  return obj
-}
-
-console.log("initNullFromArray: " + JSON.stringify(initNullFromArray(fieldList)))
+// 6. Complex Tests
+console.log("arrayDoubleQuadratic: " + arrayDoubleQuadratic)
